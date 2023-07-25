@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextRecognition {
 
@@ -28,7 +30,7 @@ public class TextRecognition {
      *
      * @return The most similar text from the list of possible augments.
      */
-    public static List<String> imageToString() throws AWTException, IOException {
+    public static List<String> imageToString() throws AWTException, IOException, InterruptedException {
         System.out.println("reading augments...");
         int counter = 0;
         List<String> compare1 = new ArrayList<>();
@@ -38,17 +40,12 @@ public class TextRecognition {
 
         int x_rec = 430;
         int y_rec = 520;
-        int width = 250;
+        int width = 300;
         int height = 60;
 
         while (true) {
-            try {
-                Thread.sleep(500); // 0.5 Sekunden pausieren
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Thread.sleep(10); // 0.01 Sekunden pausieren
 
-            Robot robot = new Robot();
 
             // Erfasse den Bildausschnitt als Screenshot
             ScreenCapture.takeScreenshot(x_rec,y_rec,width,height, "text1");
@@ -66,13 +63,55 @@ public class TextRecognition {
             String augment1 = recognizeText(matBox1);
             String augment2 = recognizeText(matBox2);
             String augment3 = recognizeText(matBox3);
+
+
+            // Regulärer Ausdruck und Ersatzmuster
+            String regex1 = "(!|\\|)";
+            String regex2 = "(IT|Il|lI|If)";
+            String replacement1 = "I";
+            String replacement2 = "II";
+
+            // Überprüfe, ob der Wert von augmentName dem regulären Ausdruck entspricht
+            if (augment1.matches(regex2)) {
+                // Ersetze das Muster durch den Ersatz
+                System.out.println("Ersetze: " + augment1);
+                augment1 = augment1.replaceAll(regex2, replacement2);
+                System.out.println("durch: " + augment1);
+            }
+            else if(augment1.matches(regex1)){
+                System.out.println("Ersetze: " + augment1);
+                augment1 = augment1.replaceAll(regex1, replacement1);
+                System.out.println("durch: " + augment1);
+            }
+            if (augment2.matches(regex2)) {
+                // Ersetze das Muster durch den Ersatz
+                System.out.println("Ersetze: " + augment2);
+                augment2 = augment2.replaceAll(regex2, replacement2);
+                System.out.println("durch: " + augment2);
+            }
+            else if(augment2.matches(regex1)){
+                System.out.println("Ersetze: " + augment2);
+                augment2 = augment2.replaceAll(regex1, replacement1);
+                System.out.println("durch: " + augment2);
+            }
+            if (augment3.matches(regex2)) {
+                // Ersetze das Muster durch den Ersatz
+                System.out.println("Ersetze: " + augment3);
+                augment3 = augment3.replaceAll(regex2, replacement2);
+                System.out.println("durch: " + augment3);
+            } else if(augment3.matches(regex1)){
+                System.out.println("Ersetze: " + augment3);
+                augment3 = augment3.replaceAll(regex1, replacement1);
+                System.out.println("durch: " + augment3);
+            }
+
             System.out.println(" Augment 1: " + augment1 + " Augment 2: " + augment2 +" Augment 3: " + augment3);
             compare1.add(augment1);
             compare2.add(augment2);
             compare3.add(augment3);
 
             counter++;
-            if (counter >= 20) {
+            if (counter >= 30) {
                 break;
             }
         }
@@ -81,9 +120,20 @@ public class TextRecognition {
         List<String> possibleAugments = readPossibleAugmentsFromFile("augments.txt");
 
         // Finde den String aus possibleAugments mit der höchsten Übereinstimmung zur erkannten Textliste
-        String mostSimilarText1 = findMostSimilarText(compare1, possibleAugments);
-        String mostSimilarText2 = findMostSimilarText(compare2, possibleAugments);
-        String mostSimilarText3 = findMostSimilarText(compare3, possibleAugments);
+        int threshold = 5;
+        String mostSimilarText1 = findMostSimilarText(compare1, possibleAugments, threshold);
+        String mostSimilarText2 = findMostSimilarText(compare2, possibleAugments, threshold);
+        String mostSimilarText3 = findMostSimilarText(compare3, possibleAugments, threshold);
+        if(mostSimilarText1.equals(String.valueOf(-999))){
+            System.out.println("ERROR1!: " + mostSimilarText1 + " Keine ausreichende Ähnlichkeit");
+        }
+        if (mostSimilarText2.equals(String.valueOf(-999))) {
+            System.out.println("ERROR2!: " + mostSimilarText2 + " Keine ausreichende Ähnlichkeit");
+        }
+        if (mostSimilarText3.equals(String.valueOf(-999))) {
+            System.out.println("ERROR3!: " + mostSimilarText3 + " Keine ausreichende Ähnlichkeit");
+        }
+
         System.out.println(mostSimilarText1 + " " + mostSimilarText2 + " " + mostSimilarText3);
         augmentList.add(mostSimilarText1);
         augmentList.add(mostSimilarText2);
@@ -141,7 +191,7 @@ public class TextRecognition {
     }
 
     // Hilfsmethode zur Suche des Strings mit der höchsten Übereinstimmung in der Liste possibleAugments
-    private static String findMostSimilarText(List<String> compare, List<String> possibleAugments) {
+    private static String findMostSimilarText(List<String> compare, List<String> possibleAugments, int threshold) {
         int minDistance = Integer.MAX_VALUE;
         String mostSimilarText = "";
 
@@ -153,6 +203,10 @@ public class TextRecognition {
                     mostSimilarText = possibleAugment;
                 }
             }
+        }
+        // Überprüfe, ob die Ähnlichkeit unter dem Schwellenwert liegt
+        if (minDistance > threshold) {
+            return String.valueOf(-999);
         }
 
         return mostSimilarText;
@@ -176,18 +230,6 @@ public class TextRecognition {
         }
 
         return dp[s1.length()][s2.length()];
-    }
-    // Hilfsklasse zur Rückgabe von Tupeln (Triplet)
-    private static class Tuple<X, Y, Z> {
-        public final X x;
-        public final Y y;
-        public final Z z;
-
-        public Tuple(X x, Y y, Z z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
     }
 
 }
