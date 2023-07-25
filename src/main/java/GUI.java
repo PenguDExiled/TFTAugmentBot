@@ -97,4 +97,12 @@ public class GUI extends JFrame implements ActionListener {
     public String getPlayerName(){
         return playerNameField.getText();
     }
+    public void setInfoArea(String input){
+        System.out.println("Setting Infoarea: " + input);
+        infoArea.setText(input);
+    }
+    public void addToInfoArea(String input){
+        System.out.println("Adding to Infoarea: " + input);
+        infoArea.setText(infoArea.getText() + "\n" + input);
+    }
 }
