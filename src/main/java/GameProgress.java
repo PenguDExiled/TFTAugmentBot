@@ -13,20 +13,20 @@ public class GameProgress{
         }
     }
 
-    public static void rerollAugments() throws InterruptedException{
-        System.out.println("rerolling augments");
+    public static void rerollAugments() throws InterruptedException, AWTException {
+        System.out.println("rerolling augments"); //x 550,y=860 x=950,y=860 x=1350,y=860
         Thread.sleep(1000);
-        moveMouseAndClick(0,0); // first augment
+        moveMouseAndClick(550,860); // first augment
         robot.keyPress(KeyEvent.VK_E);
         Thread.sleep(100);
         robot.keyRelease(KeyEvent.VK_E);
         Thread.sleep(1000);
-        moveMouseAndClick(0,0); // second augment
+        moveMouseAndClick(950,860); // second augment
         robot.keyPress(KeyEvent.VK_E);
         Thread.sleep(100);
         robot.keyRelease(KeyEvent.VK_E);
         Thread.sleep(1000);
-        moveMouseAndClick(0,0); // third augment
+        moveMouseAndClick(1350,860); // third augment
         robot.keyPress(KeyEvent.VK_E);
         Thread.sleep(100);
         robot.keyRelease(KeyEvent.VK_E);
