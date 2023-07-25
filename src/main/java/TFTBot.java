@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TFTBot {
-    static final String tftSet = '9.0';
+    static final String tftSet = "9.0";
     public static void main(String[] args) throws Exception {
         OpenCV.loadLocally();
         SwingUtilities.invokeLater(GUI::new);
@@ -77,12 +77,12 @@ public class TFTBot {
                 augments = TextRecognition.imageToString();
                 rarity = ScreenAnalyzer.getPixelColour();
                 System.out.println(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2) + " " + rarity + " " + stage + " " + username + " " + gameID + " " + tftSet);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.rerollAugments();
                 augments.clear();
                 augments = TextRecognition.imageToString();
                 System.out.println(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2) + " " + rarity + " " + stage + " " + username + " " + gameID + " " + tftSet);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.takeAugment();
                 is2_1 = true;
             } else if (!is2_5 && (tempPos = ImageScanner.isOnScreen("images\\2-5.png"))[0] != -99999) {
@@ -96,12 +96,12 @@ public class TFTBot {
                 augments = TextRecognition.imageToString();
                 rarity = ScreenAnalyzer.getPixelColour();
                 System.out.println(augments.toString() + " " + rarity + " " + stage + " " + username + " " + gameID);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.rerollAugments();
                 augments.clear();
                 augments = TextRecognition.imageToString();
                 System.out.println(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2) + " " + rarity + " " + stage + " " + username + " " + gameID + " " + tftSet);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.takeAugment();
                 is3_2 = true;
             } else if (!is3_5 && (tempPos = ImageScanner.isOnScreen("images\\3-5.png"))[0] != -99999) {
@@ -114,12 +114,12 @@ public class TFTBot {
                 augments = TextRecognition.imageToString();
                 rarity = ScreenAnalyzer.getPixelColour();
                 System.out.println(augments.toString() + " " + rarity + " " + stage + " " + username + " " + gameID);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.rerollAugments();
                 augments.clear();
                 augments = TextRecognition.imageToString();
                 System.out.println(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2) + " " + rarity + " " + stage + " " + username + " " + gameID + " " + tftSet);
-                Data.addData(augments.get(0) + ", " + augments.get(1) + "," + augments.get(2), rarity,stage,username,gameID, tftSet);
+                Data.addData(augments.get(0) + ", " + augments.get(1) + ", " + augments.get(2), rarity,stage,username,gameID, tftSet);
                 GameProgress.takeAugment();
                 is4_2 = true;
             }
