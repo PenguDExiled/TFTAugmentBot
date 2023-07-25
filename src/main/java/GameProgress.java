@@ -13,6 +13,25 @@ public class GameProgress{
         }
     }
 
+    public static void rerollAugments() throws InterruptedException{
+        System.out.println("rerolling augments");
+        Thread.sleep(1000);
+        moveMouseAndClick(0,0); // first augment
+        robot.keyPress(KeyEvent.VK_E);
+        Thread.sleep(100);
+        robot.keyRelease(KeyEvent.VK_E);
+        Thread.sleep(1000);
+        moveMouseAndClick(0,0); // second augment
+        robot.keyPress(KeyEvent.VK_E);
+        Thread.sleep(100);
+        robot.keyRelease(KeyEvent.VK_E);
+        Thread.sleep(1000);
+        moveMouseAndClick(0,0); // third augment
+        robot.keyPress(KeyEvent.VK_E);
+        Thread.sleep(100);
+        robot.keyRelease(KeyEvent.VK_E);
+    }
+
     public static void sellUnits() throws AWTException, InterruptedException {
         System.out.println("sells units");
         Thread.sleep(2000);
