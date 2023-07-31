@@ -15,7 +15,6 @@ public class GameProgress{
 
     public static void rerollAugments() throws InterruptedException, AWTException {
         System.out.println("rerolling augments"); //x 550,y=860 x=950,y=860 x=1350,y=860
-        Thread.sleep(1000);
         moveMouseAndClick(550,860); // first augment
         robot.keyPress(KeyEvent.VK_E);
         Thread.sleep(100);
@@ -30,37 +29,52 @@ public class GameProgress{
         robot.keyPress(KeyEvent.VK_E);
         Thread.sleep(100);
         robot.keyRelease(KeyEvent.VK_E);
+        Thread.sleep(100);
     }
 
     public static void sellUnits() throws AWTException, InterruptedException {
         System.out.println("sells units");
         Thread.sleep(2000);
-        moveMouseAndClick(964, 648);
+        moveMouseAndClick(960, 640);
         robot.keyPress(KeyEvent.VK_E);
-        Thread.sleep(100);
+        Thread.sleep(50);
         robot.keyRelease(KeyEvent.VK_E);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         moveMouseAndClick(440, 776);
         robot.keyPress(KeyEvent.VK_E);
-        Thread.sleep(100);
+        Thread.sleep(50);
         robot.keyRelease(KeyEvent.VK_E);
-        Thread.sleep(1000);
-        moveMouseAndClick(538,759);
+        Thread.sleep(500);
+        moveMouseAndClick(538,776);
         robot.keyPress(KeyEvent.VK_E);
-        Thread.sleep(100);
+        Thread.sleep(50);
         robot.keyRelease(KeyEvent.VK_E);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         moveMouseAndClick(659,776);
         robot.keyPress(KeyEvent.VK_E);
-        Thread.sleep(100);
+        Thread.sleep(50);
         robot.keyRelease(KeyEvent.VK_E);
-        Thread.sleep(1000);
+        Thread.sleep(500);
+        moveMouseAndClick(776,776);
+        robot.keyPress(KeyEvent.VK_E);
+        Thread.sleep(50);
+        robot.keyRelease(KeyEvent.VK_E);
+        Thread.sleep(500);
+        moveMouseAndClick(895,776);
+        robot.keyPress(KeyEvent.VK_E);
+        Thread.sleep(50);
+        robot.keyRelease(KeyEvent.VK_E);
+        Thread.sleep(500);
+
     }
     public static void moveMouseAndClick(int x, int y) throws AWTException, InterruptedException {
         System.out.println("clicks at: " +x + ", " + y);
         robot.mouseMove(x,y);
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        Thread.sleep(100);
+        Thread.sleep(30);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        Thread.sleep(30);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
     public static void takeAugment() throws AWTException, InterruptedException {
