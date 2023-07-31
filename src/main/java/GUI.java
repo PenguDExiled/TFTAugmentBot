@@ -1,11 +1,7 @@
-import org.bytedeco.opencv.presets.opencv_core;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 
 public class GUI extends JFrame implements ActionListener {
@@ -18,7 +14,7 @@ public class GUI extends JFrame implements ActionListener {
     public GUI() {
         // Set window properties
         setTitle("TFT Bot");
-        setSize(300, 500);
+        setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -29,7 +25,8 @@ public class GUI extends JFrame implements ActionListener {
         JLabel playNamePreText = new JLabel("Playername: ");
         playerNamePanel.add(playNamePreText);
         playerNamePanel.add(playerNameField);
-        JTextArea infoArea = new JTextArea(10, 20);
+        //JTextArea infoArea = new JTextArea(10, 20);
+        infoArea = new JTextArea(20,30);
         infoArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(infoArea);
 
@@ -74,22 +71,29 @@ public class GUI extends JFrame implements ActionListener {
             if (!isStarted) {
                 String playerName = playerNameField.getText().trim();
                 if (!playerName.isEmpty()) {
-                    infoLabel.setText("Spielername: " + playerName);
+                    infoLabel.setText("programm running...");
                     playerNameField.setEditable(false); // Deaktiviere die Bearbeitung des Eingabefeldes
                     try {
-                        TFTBot.Run(getPlayerName());
+                        TFTBot.Run(getPlayerName(), this);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
                     isStarted = true;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Bitte einen Spielername eingeben.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Please enter a username", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                // Code für Stopp-Button-Aktion hier
-                infoLabel.setText("Das Spiel wurde gestoppt.");
-                playerNameField.setEditable(true); // Aktiviere die Bearbeitung des Eingabefeldes
-                isStarted = false;
+                // Zeige ein Bestätigungsfenster, wenn der Benutzer auf "Stop" klickt.
+                int result = JOptionPane.showConfirmDialog(this,
+                        "Would you really like to stop the program?", "Confirm",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                if (result == JOptionPane.YES_OPTION) {
+                    // Code für Stopp-Button-Aktion hier
+                    infoLabel.setText("program has been stopped.");
+                    playerNameField.setEditable(true); // Aktiviere die Bearbeitung des Eingabefeldes
+                    isStarted = false;
+                }
             }
         }
     }
@@ -97,12 +101,18 @@ public class GUI extends JFrame implements ActionListener {
     public String getPlayerName(){
         return playerNameField.getText();
     }
-    public void setInfoArea(String input){
-        System.out.println("Setting Infoarea: " + input);
+    public  void setInfoArea(String input){
         infoArea.setText(input);
     }
-    public void addToInfoArea(String input){
-        System.out.println("Adding to Infoarea: " + input);
+    public  void addToInfoArea(String input){
         infoArea.setText(infoArea.getText() + "\n" + input);
     }
+    public boolean checkIsRunning(){
+        System.out.println("checking");
+        return isStarted;
+    }
+
+    /*public static void main(String[] args) {
+        SwingUtilities.invokeLater(GUI::new);
+    }*/
 }
