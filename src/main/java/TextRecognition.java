@@ -6,13 +6,9 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Size;
-import org.bytedeco.opencv.presets.opencv_core;
-
 import javax.imageio.ImageIO;
 import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -20,9 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class TextRecognition {
 
     /**
@@ -111,7 +104,7 @@ public class TextRecognition {
             compare3.add(augment3);
 
             counter++;
-            if (counter >= 30) {
+            if (counter >= 25) {
                 break;
             }
         }
