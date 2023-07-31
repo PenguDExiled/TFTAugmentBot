@@ -12,6 +12,13 @@ public class ScreenCapture {
         File imageFile = new File(file+".bmp");
         ImageIO.write(capture, "bmp", imageFile );
     }
+    public static void takeScreenshot(String file, boolean isPng) throws AWTException, IOException {
+        Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+        BufferedImage capture = new Robot().createScreenCapture(screenRect);
+
+        File imageFile = new File(file+".png");
+        ImageIO.write(capture, "png", imageFile );
+    }
     public static void takeScreenshot(int x, int y, int width, int height, String file) throws AWTException, IOException {
         Rectangle region = new Rectangle(x, y, width, height);
         BufferedImage capture = new Robot().createScreenCapture(region);
