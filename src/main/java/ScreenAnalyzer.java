@@ -1,9 +1,5 @@
-import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
 import javax.imageio.ImageIO;
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
